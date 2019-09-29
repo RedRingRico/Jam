@@ -1,5 +1,5 @@
 ###############################################################################
-#                                                 LD31 Makefile [Windows x86] #
+#                                   Game Jam Framework Makefile [Windows x86] #
 ###############################################################################
 .SILENT:
 
@@ -11,7 +11,7 @@ export OBJSDIR		= $(TOPDIR)/Obj/$(PLATFORM)/$(ARCH)/$(BITSIZE)/GCC/$(GCCVER)/$(B
 endif
 SOURCEDIR	= Source ../Common/Source ../Libs/hashlib2plus/Source
 
-PROJECT := LD31
+PROJECT := Jam
 TARGET := $(PROJECT)
 OUTFILE	=	$(TARGETDIR)/$(TARGET)_$(GCCVER)
 
@@ -33,7 +33,7 @@ UNAME			= $(shell uname)
 UNAME_MACHINE	= $(shell uname -m)
 
 ifneq (,$(findstring CYGWIN_NT,$(UNAME)))
-	CPPFLAGS_EXT	= -ffriend-injection -std=c++11
+	CPPFLAGS_EXT	= -std=c++14
 ##### Check for forced 32-bit or 64-bit builds ################################
 ifneq ($(64BIT), False)
 	ARCH		=	x86
@@ -63,11 +63,11 @@ endif
 CPP = $(TOOLCHAIN_PREFIX)g++
 
 CPPFLAGS	=	-c -DWIN32 -D_WINDOWS -D_UNICODE -DUNICODE \
-				-m$(BITSIZE) -DLD_BUILD_$(BUILD_DEF) \
-				-DLD_PLATFORM_$(BUILD_PLATFORM) \
-				-DLD_PLATFORM_$(BUILD_PLATFORM)_$(BUILD_ARCH) \
-				-DLD_PLATFORM_$(BUILD_PLATFORM)_$(BUILD_ARCH)_$(BITSIZE) \
-				-DLD_BITSIZE_$(BITSIZE) -DLD_ARCH_$(BUILD_ARCH) \
+				-m$(BITSIZE) -DJAM_BUILD_$(BUILD_DEF) \
+				-DJAM_PLATFORM_$(BUILD_PLATFORM) \
+				-DJAM_PLATFORM_$(BUILD_PLATFORM)_$(BUILD_ARCH) \
+				-DJAM_PLATFORM_$(BUILD_PLATFORM)_$(BUILD_ARCH)_$(BITSIZE) \
+				-DJAM_BITSIZE_$(BITSIZE) -DJAM_ARCH_$(BUILD_ARCH) \
 				-I$(TOPSRC)/$(PLATFORM)/Headers -I$(TOPSRC)/Common/Headers \
 				-I$(TOPSRC)/Libs/hashlib2plus/Source \
 				-I$(TOPSRC)/Libs/rapidjson/include
