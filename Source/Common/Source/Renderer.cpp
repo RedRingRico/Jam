@@ -93,17 +93,13 @@ namespace Jam
 		}
 
 		glGenFramebuffers( 1, &m_Framebuffer );
-
 		glBindFramebuffer( GL_FRAMEBUFFER, m_Framebuffer );
 
-		glGenTextures( sizeof( m_GBuffer ) / sizeof( m_GBuffer[ 0 ] ),
-			m_GBuffer );
-
+		glGenTextures( sizeof( m_GBuffer ) / sizeof( m_GBuffer[ 0 ] ), m_GBuffer );
 		glGenTextures( 1, &m_DepthTexture );
 
 
-		for( JAM_MEMSIZE i = 0;
-			i < sizeof( m_GBuffer ) / sizeof( m_GBuffer[ 0 ] ); ++i )
+		for( JAM_MEMSIZE i = 0; i < sizeof( m_GBuffer ) / sizeof( m_GBuffer[ 0 ] ); ++i )
 		{
 			glBindTexture( GL_TEXTURE_2D, m_GBuffer[ i ] );
 			/*glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA32F, 800, 600, 0, GL_RGBA,
@@ -127,7 +123,8 @@ namespace Jam
 		{
 			GL_COLOR_ATTACHMENT0,
 			GL_COLOR_ATTACHMENT1,
-			GL_COLOR_ATTACHMENT2
+			GL_COLOR_ATTACHMENT2,
+			GL_COLOR_ATTACHMENT3
 		};
 
 		glDrawBuffers( sizeof( DrawBuffers ) / sizeof( DrawBuffers[ 0 ] ),
@@ -158,7 +155,7 @@ namespace Jam
 	{
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, m_Framebuffer );
 
-		glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
+		glClearColor( 0.32f, 0.0f, 0.32f, 1.0f );
 
 		glDepthMask( GL_TRUE );
 
@@ -184,18 +181,26 @@ namespace Jam
 		GLsizei HalfWidth = 400;
 		GLsizei HalfHeight = 300;
 
-	/*	glReadBuffer( GL_COLOR_ATTACHMENT0 );
+		// Position
+		glReadBuffer( GL_COLOR_ATTACHMENT0 );
 		glBlitFramebuffer( 0, 0, 800, 600,
 			0, HalfHeight, 400, 600,
 			GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
+		// Albedo
 		glReadBuffer( GL_COLOR_ATTACHMENT1 );
-		glBlitFramebuffer( 0, 0, 800, 600, 0, 0, 400, 300,
+		glBlitFramebuffer( 0, 0, 800, 600, HalfWidth, HalfHeight, 800, 600,
 			GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
+		// Normals
 		glReadBuffer( GL_COLOR_ATTACHMENT2 );
-		glBlitFramebuffer( 0, 0, 800, 600, HalfWidth, 0, 800, HalfHeight, 
-			GL_COLOR_BUFFER_BIT, GL_LINEAR );*/
+		glBlitFramebuffer( 0, 0, 800, 600, 0, 0, HalfWidth, HalfHeight, 
+			GL_COLOR_BUFFER_BIT, GL_LINEAR );
+
+		// Texture co-ordinates
+		glReadBuffer( GL_COLOR_ATTACHMENT3 );
+		glBlitFramebuffer( 0, 0, 800, 600, HalfWidth, 0, 800, HalfHeight,
+			GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
 		glDepthMask( GL_FALSE );
 
@@ -204,7 +209,7 @@ namespace Jam
 		glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 
 		// TESTING!
-		g_Sphere.Render( *this );
+		//g_Sphere.Render( *this );
 	}
 
 	JAM_UINT32 Renderer::BeginLightPass( )
@@ -219,11 +224,13 @@ namespace Jam
 
 	}
 
-	JAM_UINT32 Renderer::RegisterPolygons( const JAM_MEMSIZE p_VertexCount,
+	JAM_UINT32 Renderer::RegisterPolygons( const MemSize p_VertexCount,
 		const JAM_MEMSIZE p_IndexCount, const JAM_BYTE *p_pVertices,
 		const JAM_UINT16 *p_pIndices, const GLenum p_PrimitiveType,
 		const JAM_UINT64 p_VertexAttributes, JAM_UINT32 &p_CacheID )
 	{
+		std::cout << "VC: " << p_VertexCount << std::endl;
+		std::cout << "IC: " << p_IndexCount << std::endl;
 		return m_pPolygonCache->AddPolygons( p_VertexCount, p_IndexCount,
 			p_pVertices, p_pIndices, p_PrimitiveType, p_VertexAttributes,
 			p_CacheID );

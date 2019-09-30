@@ -12,7 +12,7 @@ SOURCEDIR	= Source ../Common/Source ../Libs/hashlib2plus/Source
 
 PROJECT := Jam
 TARGET := $(PROJECT)
-OUTFILE	=	$(TARGETDIR)/$(TARGET)_$(GCCVER)
+OUTFILE	=	$(TARGETDIR)/$(TARGET)
 
 PLATFORM		:= Linux
 BUILD_PLATFORM	:= LINUX

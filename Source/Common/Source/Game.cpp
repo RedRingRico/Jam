@@ -54,7 +54,7 @@ namespace Jam
 		SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 8 );
 		SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 8 );
 
-		m_pWindow = SDL_CreateWindow( "Red Ring Rico's LD31 Entry",
+		m_pWindow = SDL_CreateWindow( "Red Ring Rico's Game Jam Framework",
 			0, 0, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL );
 
 		if( !m_pWindow )
@@ -98,11 +98,11 @@ namespace Jam
 			0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f
 		};*/
-		// Position | ST
+		// Position | Normal | ST
 		{
-			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-			1.0f, -1.0f, 0.0f, 1.0f, 0.0f
+			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 1.0f,
+			1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f
 		};
 
 		JAM_UINT16 Indices[ ] =
@@ -111,10 +111,13 @@ namespace Jam
 		};
 
 		JAM_UINT32 PolygonID;
+		MemSize VC = 3;
 
-		m_Renderer.RegisterPolygons( 3, 3,
+		std::cout << "Registering polys" << std::endl;
+
+		m_Renderer.RegisterPolygons( VC, 3,
 			reinterpret_cast< const JAM_BYTE * >( Vertices ), Indices,
-			GL_TRIANGLES, /*0x66*/0x56, PolygonID );
+			GL_TRIANGLES, /*0x66*/0x566, PolygonID );
 
 		Matrix4x4 View, Projection, World, WorldRotateZ, WorldTranslate;
 		Vector4 Translation( 1.0f, 0.0f, 0.0f, 1.0f );
@@ -128,7 +131,7 @@ namespace Jam
 		// Look down the Z axis
 		LookPoint.Set( 0.0f, 0.0f, -1.0f, 1.0f );
 
-		EyePosition.Set( 0.0f, 0.0f, 100.0f, 1.0f );
+		EyePosition.Set( 0.0f, 0.0f, 10.0f, 1.0f );
 
 		JAM_FLOAT32 Rotate = 0.0f;
 
@@ -162,11 +165,11 @@ namespace Jam
 
 			m_Renderer.Clear( JAM_TRUE, JAM_TRUE, JAM_TRUE );
 			m_Renderer.GBufferBegin( );
-			JAM_FLOAT32 YPosition = 10.0f;
-			for( JAM_MEMSIZE i = 0; i < 10; ++i )
+			JAM_FLOAT32 YPosition = 0.0f;//10.0f;
+			//for( JAM_MEMSIZE i = 0; i < 10; ++i )
 			{
-				JAM_FLOAT32 XPosition = -10.0f;
-				for( JAM_MEMSIZE j = 0; j < 10; ++j )
+				JAM_FLOAT32 XPosition = 0.0f;// -10.0f;
+				//for( JAM_MEMSIZE j = 0; j < 10; ++j )
 				{
 					Translation.SetX( XPosition );
 					Translation.SetY( YPosition );

@@ -14,6 +14,7 @@ namespace Jam
 	{
 		GBUFFER_TYPE_POSITION = 0,
 		GBUFFER_TYPE_ALBEDO,
+		GBUFFER_TYPE_NORMAL,
 		GBUFFER_TYPE_TEXCOORD,
 		GBUFFER_TOTAL
 	};
@@ -31,7 +32,7 @@ namespace Jam
 
 		JAM_UINT32 Initialise( SDL_Window *p_pWindow );
 
-		JAM_UINT32 RegisterPolygons( const JAM_MEMSIZE p_VertexCount,
+		JAM_UINT32 RegisterPolygons( const MemSize p_VertexCount,
 			const JAM_MEMSIZE p_IndexCount, const JAM_BYTE *p_pVertices,
 			const JAM_UINT16 *p_pIndices, const GLenum p_PrimitiveType,
 			const JAM_UINT64 p_VertexAttributes, JAM_UINT32 &p_CacheID );

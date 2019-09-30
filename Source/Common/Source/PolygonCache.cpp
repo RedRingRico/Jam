@@ -27,7 +27,7 @@ namespace Jam
 		}
 	}
 
-	JAM_UINT32 PolygonCache::AddPolygons( const JAM_MEMSIZE p_VertexCount,
+	JAM_UINT32 PolygonCache::AddPolygons( const MemSize p_VertexCount,
 		const JAM_MEMSIZE p_IndexCount, const JAM_BYTE *p_pVertices,
 		const JAM_UINT16 *p_pIndices, const GLenum p_PrimitiveType,
 		const JAM_UINT64 p_VertexAttributes, JAM_UINT32 &p_CacheID )
@@ -63,6 +63,8 @@ namespace Jam
 				break;
 			}
 		}
+
+		std::cout << "POLYGON COUNT: " << PolygonCount << std::endl;
 
 		if( PolygonCount == 0 )
 		{
