@@ -111,11 +111,8 @@ namespace Jam
 		};
 
 		JAM_UINT32 PolygonID;
-		MemSize VC = 3;
 
-		std::cout << "Registering polys" << std::endl;
-
-		m_Renderer.RegisterPolygons( VC, 3,
+		m_Renderer.RegisterPolygons( 3, 3,
 			reinterpret_cast< const JAM_BYTE * >( Vertices ), Indices,
 			GL_TRIANGLES, /*0x66*/0x566, PolygonID );
 

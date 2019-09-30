@@ -189,17 +189,14 @@ namespace Jam
 
 		// Albedo
 		glReadBuffer( GL_COLOR_ATTACHMENT1 );
-		glBlitFramebuffer( 0, 0, 800, 600, HalfWidth, HalfHeight, 800, 600,
+		glBlitFramebuffer( 0, 0, 800, 600,
+			HalfWidth, HalfHeight, 800, 600,
 			GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
 		// Normals
 		glReadBuffer( GL_COLOR_ATTACHMENT2 );
-		glBlitFramebuffer( 0, 0, 800, 600, 0, 0, HalfWidth, HalfHeight, 
-			GL_COLOR_BUFFER_BIT, GL_LINEAR );
-
-		// Texture co-ordinates
-		glReadBuffer( GL_COLOR_ATTACHMENT3 );
-		glBlitFramebuffer( 0, 0, 800, 600, HalfWidth, 0, 800, HalfHeight,
+		glBlitFramebuffer( 0, 0, 800, 600,
+			0, 0, HalfWidth, HalfHeight, 
 			GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
 		glDepthMask( GL_FALSE );
