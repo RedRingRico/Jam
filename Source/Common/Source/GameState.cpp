@@ -2,6 +2,11 @@
 
 namespace Jam
 {
+	GameState::GameState( ) :
+		m_Paused( False )
+	{
+	}
+
 	GameState::~GameState( )
 	{
 	}
@@ -19,5 +24,10 @@ namespace Jam
 	void GameState::Resume( )
 	{
 		m_Paused = False;
+	}
+
+	void GameState::SetGameStateManager( GameStateManager &p_GSM )
+	{
+		m_GameStateManager = p_GSM;
 	}
 }

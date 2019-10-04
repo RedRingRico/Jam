@@ -8,6 +8,7 @@
 #include <Matrix4x4.hpp>
 #include <Vector4.hpp>
 #include <Maths.hpp>
+#include <TestGameState.hpp>
 
 namespace Jam
 {
@@ -72,11 +73,15 @@ namespace Jam
 
 		m_Renderer.SetClearColour( 118.0f / 255.0f, 185.0f / 255.0f, 0.0f );
 
+		m_GameStateManager.RegisterGameState( "TestState", new TestGameState( ) );
+		m_GameStateManager.ChangeState( "TestState" );
+
 		return JAM_OK;
 	}
 
 	JAM_UINT32 Game::Execute( )
 	{
+		return static_cast< JAM_UINT32 >( m_GameStateManager.Execute( ) );
 		JAM_BOOL Run = JAM_TRUE;
 		SDL_Event Event;
 

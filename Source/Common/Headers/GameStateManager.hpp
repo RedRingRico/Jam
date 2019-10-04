@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <Renderer.hpp>
 
 namespace Jam
 {
@@ -21,9 +22,19 @@ namespace Jam
 
 		ErrorCode Execute( );
 
+		ErrorCode ChangeState( const std::string &p_StateName );
+		ErrorCode PushState( const std::string &p_StateName );
+		GameState *PopState( );
+
+		void Quit( );
+
+		Renderer *GetRenderer( );
+
 	private:
 		std::map< std::string, GameState * >	m_GameStateRegistry;
 		std::vector< GameState * >				m_GameStateStack;
+
+		Renderer	m_Renderer;
 	};
 }
 

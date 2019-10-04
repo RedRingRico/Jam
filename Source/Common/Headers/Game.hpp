@@ -4,6 +4,7 @@
 #include <DataTypes.hpp>
 #include <SDL2/SDL.h>
 #include <Renderer.hpp>
+#include <GameStateManager.hpp>
 
 namespace Jam
 {
@@ -20,7 +21,8 @@ namespace Jam
 	private:
 		JAM_UINT32 PlatformInitialise( );
 
-		Renderer	m_Renderer;
+		Renderer			m_Renderer;
+		GameStateManager	m_GameStateManager;
 
 		SDL_Window		*m_pWindow;
 	};
